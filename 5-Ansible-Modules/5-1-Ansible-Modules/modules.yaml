@@ -1,0 +1,205 @@
+We will now look at modules in Ansible.
+Ansible modules are categorized,
+into various groups based on their functionality.
+Some of them are listed here.
+System modules are actions to be performed,
+at a system level such as modifying the users
+and groups on the system, modifying IP tables,
+firewall configurations on the system,
+working with logical volume groups,
+mounting operations or working with services.
+For example, starting, stopping
+or restarting services in a system.
+Command modules are used to execute commands
+or scripts on a host.
+This could be simple commands using the command module
+or an interactive execution using the expect module,
+by responding to prompts.
+You could also run a script on the host,
+using the script module.
+File modules help work with files.
+For example, use the ACL module,
+to set and retrieve ACL information on files.
+Use the archive and un-archive modules to compress
+and unpack files.
+Use find, lineinfile and replace modules,
+to modify the contents of an existing file.
+Database modules help in working with databases,
+such as MongoDB, MySQL, MSSQL or PostgreSQL,
+to add or remove databases
+or modify database configurations.
+The cloud section has a vast collection of modules,
+for various different cloud providers,
+like Amazon, Azure, Docker, Google, Openstack
+and VMware being just a few of them.
+There are a number of modules available for each of these,
+that allow you to perform various tasks,
+such as creating and destroying instances,
+performing configuration changes in networking and security,
+managing containers, data centers, clusters,
+virtual networking, VSAN and a lot more.
+And then there are Windows modules,
+that help you use Ansible in a Windows environment.
+Some of these are wincopy to copy files,
+wincommand to execute a command on a Windows machine
+and there are a bunch of other modules available,
+to work with files on Windows.
+Create a IIS website,
+install a software using MSI installer.
+Make changes to registry using reg edit
+and managed services and users in Windows.
+These are just a few modules in few categories.
+There are a lot more
+and a comprehensive list can be found docs.ansible.com,
+along with detailed instructions on each of them.
+
+#Index of all modules: https://docs.ansible.com/ansible/latest/collections/index_module.html#ansible-builtin
+
+#Command Module
+Let's look at few of these modules in detail,
+to understand how you can use them
+and how to read the documentation page.
+We will start with the command module.
+The command module is used to execute a command,
+on a remote node.
+The parameters of the command module,
+as listed in the documentation page is shown here.
+Shown is a sample Ansible playbook using the command module.
+As you can see, to use the module,
+you simply create a key value pair of the module name
+and the parameter, which is the command in this case.
+In this case,
+we are instructing Ansible to run the date command,
+on the host, followed by executing,
+the cat etc resolv.conf command,
+to list the contents of the file.
+In case you needed to change directory,
+before executing a command.
+For example, I will rewrite the second command,
+in a different form now by removing etc from the cat command
+and setting change directory parameter to /etc.
+This will ensure that Ansible changes directory,
+to /etc before executing the command.
+This is how a parameter
+and value is passed to this command module.
+The creates parameter is used to perform a check,
+before the command is run.
+For example, this command to create the folder,
+will only run if the folder does not exist.
+The remaining parameters are self explanatory,
+so we will skip them.
+Except for this one right here called free form.
+This is worth looking at as you may see it,
+in different modules.
+Free form indicates that this module,
+takes a free form command to run.
+So what does that mean?
+You will not be able to input a parameter,
+with the name free form, like how we just used,
+change directory or creates options.
+Our command input such as cad etc resolv.conf
+or make directory/folder is the free form input.
+Not all modules support input like this.
+For example, the copy module, which is used to copy files,
+from a source to a destination,
+only takes parameterized input and not free form input.
+So as you can see here, copy requires a source file,
+as SRC parameter and destination as test parameter.
+However, the previous command module,
+did not really require you to specify,
+key equals value format for the command to run.
+The command in the command module is a free form parameter.
+
+#Script Module
+Another module to look at is the script module.
+The script module executes a script,
+which is located locally on the Ansible controller machine,
+on one or more remote nodes,
+after transferring it over.
+To run a script on one or hundreds of servers,
+you really don't have to copy it over to all the servers.
+Ansible takes care of automatically copying the script,
+to the remote node and then executing it,
+on the remote systems.
+This is done through a very simple play,
+that looks like this.
+Use the script module and specify the location,
+of the script on the Ansible controller machine
+and the arguments.
+
+#Service Module
+Let's look at the service module.
+The service module is used to maintain services,
+on a system such as starting, stopping
+or restarting a service.
+This Ansible playbook is used to start,
+various services in a particular order.
+First we start the database service,
+using the service module.
+Then the service module, unlike the previous modules,
+do not have a freeform input,
+which means you have to pass input,
+in a key value pair format.
+We use the name parameter,
+to specify the name of the service we wish to start,
+in this case, postgresql
+and the state parameter indicates the operation,
+we would like to perform, in this case started.
+Now, if you're wondering why is it started,
+instead of start, well hold onto your thoughts
+and we will come back to that in a bit.
+Now, there are two ways of writing this statement,
+you can either write it like this
+or write it in a dictionary or map format like this.
+They're one and the same.
+Remember, in YAML terms, name and state,
+are properties of service.
+Let's add a few more tasks to start,
+httpd service followed by nginx service like this.
+So back to our question on,
+why the action is started and not start?
+If we were to instruct Ansible to start a service,
+we would say start the service httpd
+and not started the service httpd.
+So then why is it started and not start?
+We're not instructing Ansible to start the service.
+Instead, we are instructing Ansible,
+to ensure that the service httpd is started.
+That essentially means if httpd service,
+is not already started, started.
+If httpd service is already started,
+then don't do anything.
+This is called idempotency.
+As per the Ansible documentation
+an operation is idempotent,
+if the result of performing it once,
+is exactly the same as the result of performing it,
+repeatedly without any intervening actions,
+thus started, stopped and restarted actions,
+instruct Ansible to ensure the service,
+is in a particular state.
+Majority of the modules in Ansible,
+are idempotent and Ansible highly recommends this.
+The overall idea is that,
+you should be able to run the same playbook again
+and Ansible should report,
+that everything is in expected state.
+If something is not,
+Ansible takes care of putting it to the expected state.
+
+#lineinfile module
+The lineinfile module is used to find a line in a file
+and replace it or add it if it doesn't already exist.
+For example, we're given a task to add a new DNS server,
+into the etc resolv.conf file.
+This simple Ansible playbook using the lineinfile task,
+adds the new name server information,
+into the etc resolv.conf file.
+Remember, the lineinfile module is idempotent.
+Let's compare this Ansible playbook,
+with a simple script that tries to achieve the same results.
+If this script is run multiple times,
+it adds a new entry into the file each time,
+which is not desired.
+If you run the Ansible playbook multiple times,
+it will ensure there's only a single entry in the file.

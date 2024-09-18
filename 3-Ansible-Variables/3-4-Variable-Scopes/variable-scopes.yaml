@@ -1,0 +1,85 @@
+So what is the scope
+of a variable in Ansible?
+Say for example, in this simple inventory file,
+we have a DNS server specified for host web two.
+Is that value available for the other hosts
+web one and web three?
+No, because the scope
+of that variable is within the host web two.
+A scope defines the accessibility
+or the visibility of a variable.
+Just like in programming languages,
+a variable is accessible depending on how
+and where it is defined.
+So that's the first scope right there.
+The host scope, a variable defined
+as a host variable is accessible within a play
+that is run for that host.
+Now, when I say defined as a host variable,
+I mean any variable defined anywhere for that host
+whether it be in the inventory file
+or as part of a group variable
+or as part of a group of group variable.
+Ultimately, when the Ansible playbook is run,
+the first thing that it does is it breaks down the groups
+and associates variables to hosts.
+So when the playbook is run,
+there is just one scope, the host scope.
+So here I have a simple playbook that sets a value
+for NTP server and prints it to the screen.
+The value for NTP server is only defined
+in the first play,
+so it prints successfully in the first play.
+But that variable is not accessible in the second play
+because the scope of that variable
+is only within the first play.
+And so that's the second type of scope, the play scope.
+And finally, there are global variables,
+variables that are accessible everywhere
+throughout the playbook execution.
+We have seen that already,
+an example is passing in a variable
+as an extra variable in the command line
+
+# Host Scope Variable
+---
+- name: Play
+  host: all
+  tasks:
+    - debug:
+        msg: '{{ dns_server }}'
+  
+
+
+# Play Scope variable
+---
+- name: Play1
+  hosts: web1
+  vars:
+    ntp_server: 10.1.1.1
+  tasks:
+    - debug:
+        var: ntp_server
+
+- name: Play2
+  host: web1
+  tasks:
+    - debug:
+        var: ntp_server
+
+# Global Scope variable
+# ansible-playbook playbook.yaml --extra-vars ntp_server=10.5.5.7
+---
+- name: Play1
+  hosts: web1
+  vars:
+    ntp_server: 10.1.1.1
+  tasks:
+    - debug:
+        var: ntp_server
+
+- name: Play2
+  host: web1
+  tasks:
+    - debug:
+        var: ntp_server

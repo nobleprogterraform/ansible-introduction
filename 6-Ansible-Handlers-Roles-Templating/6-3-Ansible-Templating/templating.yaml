@@ -1,0 +1,140 @@
+#Jinja2 templating overview
+This lecture, we will look at Jinja2.
+For those of you who are new to templating
+A templating engine is responsible
+for taking a template and applying
+a given set of variables to it
+to create usable outputs.
+It could be to generate one email
+or hundreds of such emails
+and that was a simple generic use case.
+In the IT space, it is commonly used in generating webpages.
+So you have a template of HTML webpage,
+uses set of variables
+and together they create a custom HTML page.
+
+Another popular use case
+is with automation tools like Ansible.
+Ansible uses templating extensively
+to customize playbooks to have custom information
+or to create custom configuration files.
+
+So what is a Jinja2 template?
+If you look up Jinja2 online,
+you'll see that it is a fully-featured
+templating engine for Python.
+It is beautiful and powerful
+and has a wide range of features.
+
+A simple and easy use case is to substitute parts of a train
+with a value from a variable.
+If the value of the variable, my_name is Bond,
+then the template would resolve to the name is Bond.
+What if we want the name to be an uppercase?.
+Well, we could simply append the keyword upper
+to a variable separated by a pipe character
+These are called as filters in Jinja2
+
+Let's look at some list and set based filters.
+
+So far, we've just been looking at one-liners.
+At times, you may want to use a condition or a loop
+just like in programming languages.
+For example, to generate a file with a list of numbers,
+use a four-loop
+
+#jinja2 templating in ansible
+In previous lecture, we saw Jinja2 as it is.
+In this lecture, we will see how Ansible implements Jinja2.
+These filters, along with many others
+documented in the Jinja2 website,
+are built-in filters that come with Jinja2.
+However, Ansible has extended those
+with its own set of filters.
+Jinja2 is extensible,
+so Ansible added its own set of filters to it,
+such as those specific to infrastructure use cases
+like converting to and from YAML and JSON,
+working with file names and directory paths
+in Linux and Windows, working with passwords,
+regular expressions, et cetera
+
+Let's look at some file-related filters.
+To get the file name from a full path,
+use the basename filter.
+In this case, it will return hosts
+from the file path etc/hosts,
+
+So how does Jinja2 work in playbooks?
+For example, here we have a simple inventory file
+with a few variables
+and a playbook that has a variable used in it.
+Before executing the playbook, Ansible runs the playbook
+through the Jinja2 templating engine,
+providing the set of variables it gathered
+through inventory parameters.
+The Jinja2 templating engine
+spits out a new version of the playbook
+with all the variables in place,
+which is then used for the actual execution
+
+#How to crate custom config files using jinja2 template 
+Let's start with a simple scenario.
+We're setting up web servers,
+and we wanna copy our webpage and index.html file
+stored locally to the web server's
+default index.html location.
+We use Ansible's copy module to copy the local file
+to the remote location on all web servers.
+Assuming that Nginx is already installed
+on these web servers, we are on the playbook now.
+The index.html file is copied to all of those web servers,
+and when you access the web server,
+we see the webpage that says, "This is a Web Server".
+We are requested to make the web server print its hostname
+and IP address when the webpage is displayed.
+One way to do that is to copy a separate version of the file
+to each server when they're copied
+which has the hostname in it.
+The files are still the same
+except for the value of the hostname.
+Only if we could replace the name inside
+with a variable like this as we do in the playbooks.
+So can we do that?
+Can we specify a variable inside a file
+that we want to copy like this?
+Well, we could, but not like this.
+The index.html file is no longer a valid HTML file.
+It is now our template that we will use
+to generate a valid HTML file for each of our servers.
+To be specific, it is a Jinja2 template
+like the ones we discussed before in the previous lectures.
+We wanna convert the index.html file into a Jinja2 template
+with some variables inside it,
+so the file extension to be used is .j2.
+
+the copy module that we are using now
+does not have the ability to perform variable interpolation.
+It will simply copy the file as is.
+That's where we use the template module
+instead of the copy module.
+The options for both modules are similar,
+but this time, the source file is going to be
+the Jinja2 template file we used,
+and while we're at it, the actual variable that helps us
+in getting the name specified in the inventory file
+for a host is the inventory_hostname variable
+
+You may use the same procedure
+for different configuration files,
+for example, an Nginx configuration file
+or a Redis configuration file like this.
+Remember that you can use Jinja2 filters within these.
+For example, we use the default filter
+to instruct Jinja2 to use a default value
+of 6379 for the port if it is not specified explicitly.
+You could use Jinja2 blocks as well.
+For example, to generate a list of nameserver entries,
+in /etc/resolve.conf file,
+you could use a Jinja2 for loop using an array
+to generate a target file

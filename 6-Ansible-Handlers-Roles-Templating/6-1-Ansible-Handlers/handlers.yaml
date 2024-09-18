@@ -1,0 +1,55 @@
+ Imagine you are managing
+a web server infrastructure with multiple servers.
+You frequently make changes to
+the web server's configuration file
+to adjust various settings.
+However, modifying the configuration file alone
+does not apply the changes immediately.
+To ensure that changes take effect,
+you need to restart the web server service.
+In this scenario, you would have to manually execute
+a task to restart the web server service.
+after every configuration update.
+This manual intervention becomes time consuming
+and prone to errors as the infrastructure grows.
+This is where Ansible handlers become handy.
+With handlers, you can define an action
+to restart the web server service
+and associate it with the task
+that modifies the configuration file.
+This creates a dependency between the task and the handler.
+Now, whenever the configuration file
+is modified during the Playbook run,
+the associated handler is triggered,
+ensuring that the web server service
+is automatically restarted.
+By utilizing handlers, you eliminate the need
+for manual intervention, and ensure that
+the web server service is always restarted when necessary.
+This simplifies the management of your infrastructure,
+reduces human error, and improves
+the efficiency of your automation processes.
+Handlers in Ansible are special tasks
+associated with specific events or notifications.
+They're typically defined in a playbook,
+and are executed only when triggered
+by a task notifying them.
+Handlers enable you to manage actions
+that depend on the state,
+or configuration changes of your systems.
+Here's an example playbook that demonstrates
+the use of handlers.
+In the example shown, the task Copy Application Code
+uses the Copy module to deploy
+the application code to the target servers.
+It includes the notify directive,
+which triggers the associated handler
+named Restart Application Service
+when this task completes.
+The handler restart application service uses
+the service module to restart the application service
+by specifying the service name
+and the desired state as restarted.
+This ensures that the application service
+is automatically restarted on all servers
+whenever the application code is deployed.

@@ -1,0 +1,83 @@
+We will now look at variables in Ansible.
+So what are variables?
+Just like any other scripting or programming language,
+variables are used to store values
+that varies with different items.
+For example, let's say we are trying to perform
+the same operation of applying patches
+to hundreds of servers,
+we only need a single playbook for all hundred servers.
+However, it's the variables that store information
+about the different host names, usernames, or passwords
+that are different for each server.
+We have already worked with variables earlier
+when we worked in the inventory section.
+If you remember, in an inventory file that looks like this,
+the ansible_host, ansible_connection, ansible_ssh_pass
+are all examples of variables.
+We can define as many variables as required like this.
+
+We could also define variables inside the playbook.
+This is a playbook we created earlier to add a DNS entry
+into the etc/resolv.conf file.
+To add a variable, we could simply add a vars directive,
+followed by variables in a key-value pair format.
+In this case, dns_server followed by the DNS server IP.
+
+We can also have variables defined
+in a separate file dedicated for variables.
+We will learn about this more later
+when we talk about includes and roles.
+
+So, we have now defined variables,
+but how do we use them?
+In the previous playbook,
+we have defined the variable dns_server,
+but we have not used it anywhere.
+What would be the right place to use that?
+In this line here where we defined
+the nameserver IP address,
+we could replace the hard coded value
+with the value from the variable.
+To use a variable, simply enter the variable name
+enclosed in double braces or curly brackets.
+
+=========Variable types===========
+Let us take a look at variable types.
+String variables in Ansible are sequences of characters.
+They can be defined in a playbook, inventory,
+or passed as command line arguments.
+In the example shown,
+username is a string variable with the value admin.
+The second type is number variables.
+Number variables in Ansible
+can hold integer or floating-point values.
+They can be used in mathematical operations.
+In the example shown,
+max_connections is a number variable with the value 100.
+Another type of variable is a Boolean variable.
+The Boolean variables in Ansible
+can hold either truthy or falsy values.
+They're often used in conditional statements.
+In the example shown, debug_mode is a Boolean variable
+with the value true.
+Possible truthy and falsy values
+are shown in the table displayed.
+We use list variables in Ansible
+to hold an ordered collection of values.
+The values can be of any type.
+In this example,
+packages is a list variable that holds three string values.
+You can reference this variable in your playbook
+in double curly brackets.
+If you want to access a specific item in the list,
+you can do so by its index, as shown in the example.
+We also have dictionary variables in Ansible
+that can hold a collection of key-value pairs.
+The keys and values can be of any type.
+In this example, user is a dictionary variable
+that holds two key-value pairs.
+You can reference this variable in your playbook
+by using double curly brackets.
+If you want to access a specific value in the dictionary,
+you can do so by its key, as shown in the example.

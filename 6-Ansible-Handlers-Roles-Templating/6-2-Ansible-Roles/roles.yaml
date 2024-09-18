@@ -1,0 +1,138 @@
+ In this lecture
+we discuss about roles in Ansible.
+Just like how you would assign roles
+to different people in the real world, making them doctors
+engineers, astronauts, policemen, or chef.
+In the Ansible world, you would assign roles
+to blank servers to make them a database server
+or a web server
+or a Redis messaging server or a backup server
+In the automation world
+assigning a role means doing everything you need to do
+to make a server a database server
+such as installing the prerequisites required for MySQL
+installing MySQL packages themselves
+configuring the MySQL service
+and finally configuring database with our users.
+With a web server
+it would be, again, installing the prerequisites for Nginx
+installing Nginx packages, configuring Nginx services
+and configuring the custom webpages
+
+By now, we know how to get these tasks done
+using Ansible playbooks.
+We have done these a lot.
+Here's a simple playbook that can do this.
+But then, if you can do this in a playbook
+why do you need roles?
+This set of tasks, to install and perform basic
+configurations on a MySQL database is going to
+remain mostly common.
+Once a person develops this Ansible playbook
+it can be shared with hundreds of thousands
+of others trying to do the same thing, install MySQL.
+Instead of all of them rewriting this piece of code
+you could package it into a role and reuse it later.
+Next time, you could simply assign the role you created
+and in a playbook like this, be it a single server
+or hundreds of servers, that's all you need.
+So that's the primary purpose of roles
+to make your work reusable
+be it for other tasks or projects
+within your organization or outside for others globally.
+
+Roles also help in organizing your code within Ansible.
+Roles introduce a set of best practices
+that must be followed to organize all tasks
+into a task directory.
+All variables used by these tasks in the vars directory.
+Any default values goes into the default directory.
+All handlers go into the handlers directory.
+And any templates used by the playbooks
+go into the templates directory.
+Roles also help in sharing your code
+with others in the Ansible community.
+Ansible Galaxy is one such community
+where you can find thousands of roles
+for almost any task you can think of.
+Installing and configuring different web servers
+different database servers, automation tools
+monitoring tools, packaging tools
+security software, et cetera.
+So before you start writing those playbooks
+I highly recommend taking a look at this community first.
+There must be a role created for that already by someone.
+So how do you get started with roles?
+It's easy, as we discussed in the previous slide
+first, we create the directory structure required for a role
+but you don't have to do that manually.
+Ansible Galaxy has a neat tool that can
+create a skeleton for you.
+Use the Ansible dash galaxy init command to initialize
+and create a directory structure.
+Remember, this is to create your own role
+from scratch and then move all of your code
+into the task directory into a file, and that's it.
+So how do you use your role within your playbook?
+Say I have my playbook
+within a directory called my playbook.
+My playbook dot yml file contains a simple play
+to install and configure MySQL on my TP server.
+I would like to assign the role I created using
+the roles directive like this, but if I were to do that
+how does my playbook know where that role is?
+I could have created that role anywhere on my system.
+How can my playbook find that role?
+There are different ways to do that.
+I could create a directory called roles
+within my playbook folder
+and move the role I created under it.
+When the playbook runs, Ansible looks for a role named MySQL
+under the roles directory, and that's one way of doing it.
+Or you can move the roles
+to a common directory designated for roles on your system
+at etc Ansible roles location.
+That's the default location where Ansible searches for roles
+if it can't be found in your playbooks directory.
+Of course, that's defined in the Ansible configuration file
+as roles path, which you can modify if required.
+Once you have created your role and placed it
+in your roles directory and used it in a playbook
+you may share it with the community by uploading it
+to Ansible Galaxy through a GitHub repository.
+Now, what if you don't want to use a role from Galaxy?
+Instead, you want to find an existing role
+and use it in your playbook.
+To find roles, you could search from the Ansible Galaxy UI
+or do it from the command line interface using
+the Ansible dash galaxy search command.
+To use a role, run the Ansible dash galaxy install command
+with the name of the role.
+The role is extracted to the default roles directory
+at etc Ansible roles location.
+The roles can now be used in your playbook
+by specifying the same name like this
+as an array of strings, as role names.
+Another way to specify roles, as an array of dictionaries
+this will allow you to pass in additional options
+to the role, such as to execute the role
+by escalating privileges, by specifying the become directive
+or to pass in additional parameters like the MySQL
+underscore user underscore name option like this.
+To summarize, roles make it really easy to develop, reuse
+and share Ansible playbooks.
+To configure a single server
+with both database and web application on it
+assign both roles to it.
+To configure it separately on separate servers
+create two plays in the playbook, one for each server
+and assign the respective roles to them.
+To view a list of roles currently installed
+on the Ansible Galaxy list command
+to view the location where roles would be installed
+check the Ansible configuration using the
+Ansible config dump command.
+The default role path is where the roles are installed.
+While installing roles
+you may use the dash P option to install it
+in the current directory under roles like this.

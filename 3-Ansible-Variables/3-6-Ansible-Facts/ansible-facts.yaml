@@ -1,0 +1,110 @@
+This lecture, we will look at Ansible Facts.
+When you run a playbook
+and when Ansible connects to a target machine,
+it first collects information about the machine,
+such as its basic system information,
+like the system architecture, version of operating system,
+processor details, memory details, serial numbers,
+et cetera.
+It collects information
+about the host's network connectivity,
+the different interfaces, IP addresses, FQDN,
+MAC address, et cetera,
+as well as device information like the different disks,
+volumes, mounts and the amount of space available on them,
+the date and time on those systems
+and other settings as well.
+These information are known as facts in Ansible.
+Ansible gathers all these facts using the setup module.
+The setup module is run automatically by Ansible
+to gather facts about the hosts when you run a playbook,
+even if you didn't use this module in your playbook.
+For example, in this sample playbook
+where we print a hello message,
+we only have one task, the task that uses the debug module
+to print a message.
+But in the output, you see that it's actually run two tasks.
+The first one gathers facts
+and the second one prints the message,
+which was the only one we specified in our playbook
+actually.
+The first task is where Ansible
+runs the setup module automatically
+and gathers facts from the hosts.
+So how do you see those facts?
+All facts gathered by Ansible are stored in a variable
+named ansible_facts.
+Let's update our playbook to print that variable
+instead of the message.
+Use the VAR option on the debug module
+and specify ansible_facts variable.
+The output should display a lot of information
+about the host's IPs,
+whether it's a 64 bit or a 32 bit system,
+with flavor, version, DNS server configurations,
+FQDN, interfaces, memory details, device information,
+processor details, et cetera.
+These details could come in handy within your playbooks.
+For example, if you were configuring devices
+and logical volumes on your nodes,
+you could make certain decisions
+based on the information about disks gathered as facts.
+Now, what if you don't want Ansible to do that?
+Say for example, your playbook does not rely on
+any information gathered from facts,
+so you would like to disable gathering facts.
+You could do that by adding an option
+gather_facts to no on the play like this.
+You would then see only a single task
+and known facts gathered.
+The behavior of gathering facts
+is also governed by a setting
+in the Ansible configuration file called Gathering,
+as we saw in one of the previous lectures.
+It is by default set to implicit,
+meaning Ansible will automatically gather facts
+whether you specify it or not.
+Explicit is the opposite,
+where Ansible does not gather facts by default,
+but you can turn it on by setting the gather_facts to true
+in the playbook.
+What if you have it specified in both places,
+in the playbook as well as in the configuration file?
+The setting in the playbook always takes precedence
+over the one in the configuration file.
+One more thing, remember that Ansible only gathers facts
+against hosts that are part of the playbook.
+In this case, I have an inventory file with two hosts,
+web1 and web2,
+and an Ansible playbook which targets only one host, web1.
+In this case, facts will be gathered only
+for that host, web1.
+So anytime you come across a situation
+where facts for some hosts are unavailable,
+that could probably be because you have not targeted
+those hosts in your playbooks.
+
+# Show Fact gathered at start of play
+---
+- name: Print Hello message
+  host: all
+  tasks:
+    - debug:
+        msg: Hello from Ansible
+
+# Show facts
+---
+- name: Print Facts
+  host: all
+  tasks:
+    - debug:
+        var: ansible_facts
+
+# Gather no facts
+---
+- name: Print Facts
+  host: all
+  gather_facts: no
+  tasks:
+    - debug:
+        var: ansible_facts

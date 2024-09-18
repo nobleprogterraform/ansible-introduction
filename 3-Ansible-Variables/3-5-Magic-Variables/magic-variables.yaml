@@ -1,0 +1,68 @@
+This lecture, we will discuss
+about magic variables in Ansible.
+Earlier, we discussed the scope of a variable.
+We learned that the host variables
+are associated to each host.
+With this inventory file,
+we have a DNS server specified for host web2.
+When Ansible playbook starts,
+it first creates three sub-processes for each host.
+Before the tasks are run on each host,
+Ansible goes through a variable interpolation stage
+where it picks up variables from different sources
+and associates them to the respective hosts.
+Each variable is only associated to the host
+on which it was defined, so it is unavailable on the others.
+The DNS server's IP address is unavailable on web1
+and web3, but how do you get it if you really want it?
+How can one Ansible subprocess running tasks
+for one host get the variables defined on another host?
+How can web1 and web3 get the DNS server's IP address,
+which is specified on web2?
+That's where we use magic variables.
+A magic variable called hostvars can be used
+to get variables defined on another host.
+In this case, hostvars of web2.dns_server
+will get you the DNS server defined on the web2 node,
+and this will work for all hosts.
+You can get any information about the other hosts this way.
+To get the host name or IP of the other host,
+use the ansible_host parameter.
+If facts are gathered, you can access additional facts
+about other hosts, such as their architecture,
+information regarding their devices, mounts,
+processors, et cetera.
+Anything within the facts of a host
+can be retrieved like this.
+Also, note that you can write the same expression
+like this using brackets and single quotes.
+Both these expressions yield the same results.
+You might see this in different formats
+in the documentation.
+So that was one kind of magic variable that are used
+to get variables from other hosts.
+Another magic variable is called groups.
+Groups return all hosts under a given group.
+Group names is the other way around.
+It returns all the groups the current host is part of.
+In this case, when you use group names in a play
+for host web1, it returns web_servers
+and Americas, which happens to be the groups
+that this particular host is part of.
+Inventory_hostname is a magic variable
+that gives you the name configured for the host
+in the inventory file and not the host name or SQDN.
+Well, those are a few, and there are others as well
+that we can see in the documentation page.
+In the documentation section,
+magic variables are documented
+under the Using Variables section
+under Working with Playbook section in the user guide.
+
+
+---
+- name: Play
+  host: all
+  tasks:
+    - debug:
+        msg: '{{ host_vars['web2'].dns_server }}'

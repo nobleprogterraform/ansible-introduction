@@ -1,0 +1,78 @@
+In this lecture we will look at loops
+let's look at this example where we are
+creating an Ansible playbook.
+To create users in a system
+using the user module.
+The user module helps you create users
+on the target systems.
+In this case we are just creating one user.
+But what if we have multiple users.
+What if we have a lot of users to create.
+Well, one way to do this would be
+to duplicate these lines as many times as required.
+But that is not very elegant,
+and as there is a lot of duplication.
+A better way to do this
+would be to have a single task loop over all the users.
+That's were we use loops.
+Loop is a looping directive
+that executes the same task multiple number of times.
+Each time it runs,
+it stores the value of each item
+in the loop in a variable named "item".
+So you can simply replace the user name,
+in this case Joe with the item variable
+inside double braces like this.
+This makes your playbooks much more organized,
+and with reduced repetition.
+In this case
+you are not repeating the lines of the user module
+or the state.
+If you didn't get how the part about item works,
+let me visualize that for you.
+So any time you come across a play book
+probably written by someone else,
+and the loop part is confusing,
+I would recommend visualizing it like this
+
+But what if I want to specify the user id as well.
+That would mean each item in the loop
+would have to have two values;
+the user name and user id.
+
+The loop directive we just saw are used to create
+simple loops that iterate over a lot of items.
+There's another way to create loops in playbooks.
+And that is using the with underscore directives.
+This playbook the we developed can also be written
+using the with underscore items directive like this.
+In fact the loop directive is newly added in Ansible.
+In the past we just had the with underscore items directive.
+In this case both playbooks yield the same results
+and there is not much difference between the two.
+For simple loops like the ones we have been working on,
+it is recommended to use the loop directive itself.
+However in some of the older playbooks,
+you might come across the
+with items directive so you should understand
+what that means when you see that.
+Now lets look at the advantage of the with directives.
+With items just iterates over a list of items.
+We have other directives such as,
+with files that iterate over multiple files,
+with url that connects to multiple urls,
+with mongodb that connects to multiple mongodb data bases.
+And these are just a few.
+So are these all or are there more,
+if so how many are there?
+It so happens that these are just a few among the many
+with directives available.
+In fact everything you see after the with underscore string
+is a look up plugin.
+So whatever look up plugin you have or you create
+you can use with underscore with that.
+So what are look up plugins?
+Just think of them as custom scripts
+that can do specific tasks like read files,
+connect to a url or connect to a data base,
+or connect to other systems like copernicus or open shift.

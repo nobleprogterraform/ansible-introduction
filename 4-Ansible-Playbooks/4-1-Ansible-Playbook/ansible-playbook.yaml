@@ -1,0 +1,110 @@
+We will now look at Playbooks in Ansible.
+Ansible Playbooks are Ansible's orchestration language.
+It is in Playbooks where we define
+what we want Ansible to do.
+It is a set of instructions you provide Ansible
+to work its magic.
+For example, it can be as simple as
+running a series of commands on different servers
+in a sequence, and restarting those servers
+in a particular order.
+Or it could be as complex as deploying hundreds of VMs
+in a public and private cloud infrastructure,
+provisioning storage to VMs, setting up their network
+and cluster configurations, configuring applications on them
+such as web server or a database server,
+setting up load balancing, setting up monitoring components,
+installing and configuring backup clients
+and updating configuration database with information
+about the new VMs, et cetera.
+Let's take a closer look at how Playbooks are written.
+Remember, all Playbooks are written in YAML format,
+which is why we spent some time earlier
+getting our hands dirty with YAML.
+A Playbook is a single YAML file
+containing a set of plays.
+A play defines a set of activities to be run
+on a single or a group of hosts.
+A task is a single action to be performed on a host.
+Some examples of a task are executing a command
+or a script on the host, installing a package on the host,
+or performing a shutdown or a restart operation.
+Let's take a look at an actual playbook.
+Shown here is a simple Ansible Playbook
+that contains a single play named play 1.
+The goal of this play is to run a set of activities
+one after the other on the local host.
+Remember that the host you wanna run these actions
+is defined at the play level.
+In this case, we just want to test on the local host,
+which is why it is set to local host.
+This could be anything from your inventory file.
+Next, we run a set of commands
+one after the other on the host.
+First, we print the date, then we run a script
+on the server, followed by installing the httpd package
+using the YAML module, and finally starting the web server
+using the service module.
+Let's look at this sample playbook format
+and try to relate it to what we learned
+in the YAML section earlier.
+I have made a minor change and split the list of tasks
+into two separate plays.
+The YAML file, which is our playbook,
+contains a list of two plays.
+This is noted by the dash.
+So the playbook is a list of dictionaries in YAML terms.
+Each play is a dictionary
+and has a set of properties called name, hosts, and tasks.
+Remember, these are properties of a dictionary
+and so the order doesn't really matter.
+So even if you swap the position of name or host,
+it's still a valid play.
+However, this is not the same for tasks.
+The tasks, as you can see, is a list or an array,
+as denoted by the dashes.
+Lists are ordered collection,
+so the position of entries matter.
+If you swap the position of entries here,
+we're instructing Ansible to start the web service first,
+before installing the httpd service, which is not desired.
+So the YAML format is key while developing Playbooks,
+you must pay extra attention to the inundation and structure
+of the file.
+The host parameter indicates which host you want
+these operations to run on.
+Remember, the host you want to perform these operations
+against is always set at a play level.
+Currently, this is said to local host,
+which means that all these actions listed under tasks,
+is going to be performed on the local host.
+You could have any host or group specified here,
+but you must ensure that the host or group
+is first defined in the inventory file we created earlier.
+The host defined in the inventory file
+must match the host used in the Playbooks,
+and all connection information for the host
+is retrieved from the inventory file.
+If you specify a group, instead,
+the listed tasks will be executed
+on all the hosts listed under that group simultaneously.
+Let's move on to modules.
+The different actions run by tasks are called modules.
+In this case, command, script, yum and service,
+are Ansible modules.
+There are hundreds of other modules available
+out of the box.
+Information about these modules is available
+in the Ansible documentation website,
+or you could simply run the ansible-doc-l command.
+To get familiar with the basic playbook structure
+in the upcoming exercises,
+you simply need to know the basic command module.
+Later on, we will go through some other basic modules
+in more detail.
+Finally, once you successfully build the Ansible playbook,
+how do you run it?
+It's very simple.
+Execute the ansible-playbook command
+and specify the name of the Ansible playbook
+you just created, and that's it.

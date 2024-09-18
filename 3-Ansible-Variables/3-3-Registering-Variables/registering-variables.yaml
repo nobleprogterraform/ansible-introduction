@@ -1,0 +1,75 @@
+At times, you may have a requirement
+to store the output of one task to use it later.
+For example, in this simple playbook,
+I have a task that prints the output
+of the file etc/hosts on a server.
+I'd like to add another task to print the output
+of the first command on screen using the debug module.
+So how do I capture the output of the first command
+and pass it to the second command?
+Use the registered directive with the first command
+and specify a variable name.
+The output will now be captured into this variable.
+Then specify the same variable
+in the VAR option of the debug module.
+The variable named result is now accessible
+for the duration of display.
+This is the output when you print the variable.
+Now the data stored in the variable
+depends entirely on what module was run.
+Different modules output data in different formats.
+In this case, the variable stores the result
+of the command execution since we use the Shell module.
+The result includes the return code specified by RC.
+This would be zero if the command runs successfully.
+Anything other than the zero
+indicates that the command may have run into a problem.
+The result also has the start time of the command,
+end time of the command, and the delta indicating the time
+it took for the commands to complete execution,
+as well as the standard out
+and standard error of the command, if any.
+Since we tried to print the contents of the etc/host file,
+they're stored in the STD out or STD outlines parameter.
+So instead of printing all of the contents,
+what if you just want to print the file contents alone?
+The output of the command we tried to run,
+then you specify the variable to print as result.stdout
+and same goes for the return code.
+If you want to print this return code, specify result.rc.
+So what is the scope of such registered variables?
+Any variable created using the registered directive
+falls under the scope of that host.
+That variable is associated to that host
+and is available for the rest of the playbook execution.
+In this case, the result variable has the results
+of the command execution for its respective host.
+So remember, they're under the host scope,
+meaning they can still be used in the next play if required
+and they can only be used within the scope of that host.
+Another easy way to view the output of a task
+if you don't really want to use the debug module
+is to pass in the -v option while running the playbook.
+
+
+
+---
+- name: Check /etc/hosts file
+  hosts: all
+  tasks: 
+    - shell: cat /etc/hosts
+      register: result
+    - debug:
+        var: result.stdout
+
+- name: Play2
+  host: all
+  tasks:
+    - debug:
+        var: result.rc
+
+
+# Another easy way to view the output of a task
+# if you don't really want to use the debug module
+# is to pass in the -v option while running the playbook
+ansible-playbook -i inventory playbook.yaml -v

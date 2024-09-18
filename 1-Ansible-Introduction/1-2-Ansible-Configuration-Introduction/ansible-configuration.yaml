@@ -1,0 +1,158 @@
+In this lecture,
+we will look at configuration files in Ansible.
+When you install Ansible, just like any other software,
+it creates a default configuration file at the location,
+/etc/ansible/ansible.cfg.
+The Ansible configuration file governs the default behavior
+of Ansible using a set of parameters.
+An Ansible configuration file is divided
+into several sections, the default section at the top,
+and others like inventory, privileges_escalation,
+ssh_connection, and colors to name a few.
+Within each of these sections, you have a number of options
+and their values, most of them being in the default section.
+For example, the default location
+of the Ansible inventory file,
+the location of the logs file,
+the location to the modules or roles, or plugins directory,
+whether Ansible should be gathering facts by default
+for all executions,
+how long to wait before giving up
+on an SSH connection attempt,
+or how many hosts should Ansible target
+at a time when executing playbooks
+against multiple hosts?
+Out of the inventory section,
+you have options for enabling certain inventory plugins.
+Now, we don't have to understand
+all of these options for now.
+We will look at some of these options in more detail
+when we cover the respective topics.
+For now, let's look at how to work with configuration files
+in general and how these values are interpreted
+and how to override some of them.
+
+Now, we know the default location
+of Ansible's configuration file
+is at /etc/ansible/ansible.cfg path,
+and those are values Ansible will consider
+when you run the playbooks
+from anywhere on the controlled machine.
+Say I have multiple different playbooks
+in different locations on my host, like one for web,
+another for database, and another for networking,
+and say I require different settings in each of these.
+For example, when I run the playbooks for web,
+I do not want facts to be gathered;
+when I run the playbooks for database,
+I do want facts to be gathered, but I do not want
+to display colored output for some reason.
+When I run the network playbooks,
+I want to extend the SSH timeout to 20 seconds
+instead of the default 10.
+I just picked one example for each
+for now, but you might have a requirement
+to change many such values based on your use case.
+In that case, you make a copy
+of the default configuration file
+into each of these directories
+and make the necessary changes in them.
+Next time you run Ansible Playbook,
+it picks values from the config file
+within those directories.
+
+That's one way to override default parameters in Ansible.
+What if you plan to store one of your configuration files
+in a directory other than your Playbooks directory?
+For example, you want to store the web configuration
+to a file at location opt/ansible-web.cfg
+and use that for multiple Ansible playbooks going forward.
+In such cases, before running the Ansible playbook,
+you can specify the location to this configuration file
+through an environment variable, ansible_config,
+and set it to the path to the new config file.
+This time, when the playbook is run, Ansible picks up
+that file instead of the default configuration file.
+So we saw different ways
+of specifying the configuration file, by specifying the path
+in an environment variable, by creating the config file
+in the playbooks directory or from the default location.
+What if you have all of them configured,
+and different values for different parameters
+in each of them?
+Which one does it consider,
+and what order does Ansible pick the configuration files in?
+
+The first priority is always to the parameters configured
+in the file specified through an environment variable.
+Any values configured
+in this file overrides the values configured
+in all other files.
+followed by the ansible.cfg file in the current directory
+from which the Ansible playbooks are run,
+followed by the .ansible.cfg file
+in the user's home directory.
+Yes, that's one place that we didn't mention earlier.
+And lastly, the default Ansible configuration file
+at /etc/ansible/ansible.cfg.
+Remember, these files don't have to have all values.
+You only need to override the parameter
+you want to override.
+Default values
+for other parameters will be automatically picked
+from the next config file in the priority chain.
+
+There are different ways
+to pass this environment variable in.
+You could simply specify it
+in a key equals value format
+right before executing the playbook like this.
+But remember, this setting is then only applicable
+to this single playbook execution, this single command.
+If you want to persist that throughout
+your shell session, you could use the export command
+and set the environment variable shell wide,
+until you exit from your shell, this setting will be active.
+If you want to make the change persistent
+across different shells across different users
+running this playbook on different systems,
+then the best approach is to create a local copy
+of the configuration file
+in the Playbooks directory and update the parameter in it.
+That way, you can even check in the configuration file
+into your code repository.
+
+So how do you find out
+what the different configuration options are,
+what the corresponding environment variables are,
+and what they mean.
+Use the ansible-config list command to see a list
+of all different configurations, their default values,
+and the values you can set.
+We learned that you can have
+multiple different configuration files on your system.
+For example, one in the present directory and another
+in the user's home directory, and another
+in the /etc/ansible directory.
+How do you see which one is active?
+You can run the ansible-config view command
+to see the config file that's currently active.
+We also learned different ways
+to specify configuration parameters
+to different configuration files, environment variables,
+a mix of config files and environment variables.
+What if you're not sure which setting
+have been picked up by Ansible?
+Now to my favorite command, the ansible-config dump command.
+This will show you a comprehensive list
+of current settings Ansible has picked up
+and where it's picked that from.
+For example, here I'm going to set an environment variable
+to set facts gathering to the value explicit.
+Then, running the ansible-config dump command
+and looking for the gathering keyword,
+you see it's set to explicitly
+because of the environment variable ansible_gathering.
+It tells you exactly how it picked that value.
+This is especially useful when you're troubleshooting issues
+with configuration.

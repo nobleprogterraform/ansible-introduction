@@ -1,0 +1,103 @@
+ In this lecture we will look at conditionals.
+Let us start with a simple example.
+I have two playbooks here that does the same thing,
+install NGINX on a host.
+But as you know,
+different OS flavors use different package managers.
+WN uses APT and Red Hat uses Yum
+but these are two separate playbooks
+and you will have to use the right playbook
+for the respective servers.
+I want to create a single playbook that works
+for both of these operating systems for all hosts.
+So based on the operating system flavor
+my playbook must run the appropriate task
+and that's where a conditional statement comes in handy.
+I could use the when conditional statement to
+specify a condition for each task,
+only if the condition is true, that task is run.
+So what is a condition?
+It could be any check that we perform,
+such as checking in if the OS family is Debian or Red Hat.
+Ansible underscore OS underscore family
+is a built in variable that Ansible populates
+with the flavor of operating system.
+Make sure to use double equal sign when checking equality,
+in conditional statement.
+You may use an or operator to
+specify either of two conditions.
+Use the yum module to install package if the OS family
+is Red Hat or Suse or an and operator.
+So it must satisfy both conditions.
+In this case we use the APT module only if
+the OS family is Debian and the version is 16.04.
+You may use conditionals in a loop as well.
+Say for example, instead of a single package, we have a list
+of packages that needs to be installed.
+We have an array named packages that has the list.
+Each item in the list has the name of the package
+to be installed as well as a property called required.
+Install the packages only if the required property is set
+to true.
+First, we specify the loop directive to execute
+the installed task in a loop.
+The name of the package to be installed is now item.name
+and this will install all three packages specified.
+To visualize this better, if you kind of expand the loop
+you'll see that the loop is in fact three different tasks,
+one for each package.
+Each task has the variable on it called item
+and the item has the respective package details.
+So if I wanted to write a conditional for each of the item,
+I would say when item.required equals true.
+and so back in my main playbook, that's what I would put in.
+When item.required equals true
+and that's how you use conditionals in loops.
+Let's look at one final example.
+To use conditionals with the output of a previous task
+we have a requirement to develop a playbook
+to check the status of its service and email if it's done.
+So there are two tasks.
+The first task checks the status
+of a service and the second task sends an email.
+We have learned previously that to record the output
+of one task, we could use the registered directive.
+So we say register the output to the result variable
+and then in the second task we use the when conditional
+on that result variable to say check
+if result.stdout has down in it.
+The defined method looks for a string
+within a variable and returns its position.
+If it's not found, it returns minus one.
+So our condition would be if it's not minus one,
+meaning that the output does not contain the word down,
+send an email.
+
+
+#Conditional on Facts
+ Now, let us imagine your company
+has a mix of different servers.
+Some are running Ubuntu 18.04,
+some are running CentOS 7,
+and others are running Windows Server 2019.
+Your task is to automate the deployment of a web application
+across all these servers.
+This means the playbook needs to perform
+a different set of actions for different servers.
+So in scenario 1,
+you need to install a specific version of NGINX web server,
+but only on the servers running Ubuntu 18.04.
+How do you determine which version of OS
+is running on a server?
+Our inventory only has basic information
+about the server that we know of.
+This is where Ansible's facts come into play.
+Ansible facts are system-specific variables
+that can be used in playbooks.
+They collect information about the servers
+during the execution of the playbook.
+You can use the ansible_facts os_family
+and ansible_facts distribution_major_version
+to determine the operating system of the target servers
+and install the specific version of NGINX
+only on the servers running Ubuntu 18.04.

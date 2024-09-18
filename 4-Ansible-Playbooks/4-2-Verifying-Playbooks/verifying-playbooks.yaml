@@ -1,0 +1,121 @@
+Let's say you're tasked
+with deploying a critical software update
+across hundreds of servers in your organization.
+You write an Ansible playbook to automate this task
+and confident in your work you decide to run it immediately
+in your production environment.
+However, due to an unnoticed error in the playbook,
+instead of updating the software,
+it unintentionally shuts down the service on all servers.
+The result, a significant downtime
+and a frantic scramble to restore the service.
+This scenario underscores the importance of a critical step
+in the playbook development process, which is verification.
+Now, why do we need to verify playbooks?
+Verifying a playbook before executing it
+in a production environment is a crucial practice.
+It's like a rehearsal
+before the actual performance allowing you to catch
+and rectify any errors or unexpected behaviors
+in a controlled environment.
+Without this verification step,
+you run the risk of introducing unforeseen issues
+into your systems as illustrated in the scenario shown.
+These issues can lead to system downtime, data loss
+or other serious consequences,
+and can be much more difficult and time consuming to resolve
+than the initial problem
+the playbook was intended to address.
+By verifying your playbooks,
+you can proceed with confidence knowing
+that your playbook will behave exactly
+as expected when it's run in your production environment.
+This not only helps to maintain the stability
+and reliability of your systems
+but also saves you from potential headaches down the line.
+Let us now see how we can verify playbooks in Ansible.
+Ansible provides several modes for verifying playbooks
+out of which the check mode and diff mode are the main ones.
+The check mode is a dry run mode
+where Ansible executes the playbook
+without making any actual changes on the hosts.
+It allows you to see what changes the playbook will make
+without applying them.
+To run a playbook in check mode,
+use the --check option.
+Let's say you have a simple Ansible playbook saved
+as install_nginx.yml that installs the nginx web server
+on a host.
+To run this playbook in check mode
+you would use the --check option.
+In check mode,
+Ansible will not actually install nginx on the hosts.
+Instead, it will tell you what it would do if it were
+to run the playbook for real.
+In this output you can see
+that Ansible says it would change the state
+of the web server one host by installing nginx.
+However, because you ran the playbook in check mode,
+no changes were actually made.
+Please note that not all Ansible modules support check mode.
+If a task uses a module that doesn't support check mode,
+the task will be skipped when you run the playbook
+in check mode.
+Another mode for verifying playbooks is diff mode.
+Diff mode when used with check mode shows the differences
+between the current state and the state
+after the playbook is run.
+It provides a before and after comparison,
+which can be useful for understanding
+what changes a playbook will make.
+To run a playbook in diff mode,
+use the --diff option.
+Here's an example playbook that ensures
+a specific line is present in a configuration file.
+You can save this playbook as configure-nginx.yml.
+To run this playbook in check mode and diff mode,
+you'd use the check and diff options.
+The output might look something like this
+if the line is not already present in the file.
+In this output you can see the exact change
+that would be made to the ETC nginx nginx.config file.
+The line with the plus symbol shows what would be added
+to the file.
+In addition to the check and diff modes,
+Ansible also provides a syntax check mode.
+This mode checks the syntax of your playbook for any errors.
+It's a quick way to catch syntax errors
+that could cause your playbook to fail.
+To run a playbook in syntax check mode use
+the --syntax-check option.
+Here's how you can use it.
+Let's say you have the following playbook saved
+as configure_nginx.yml.
+You can run the syntax check with the following command.
+The output will simply confirm
+the playbook syntax is correct as you can see on the screen.
+Now, let's introduce a syntax error
+into the playbook by removing the colon after line in file.
+If you run the syntax check again,
+you'll receive an error message indicating the problem.
+This error message tells you exactly
+where the problem is making it easier to fix the issue.
+The syntax check mode is a quick way to catch such errors
+before running the playbook on your hosts.
+
+###Ansible Lint
+As your infrastructure expands,
+so does the complexity of your playbooks.
+Some playbooks start to become more difficult to understand
+and maintain than others.
+You realize that you need a mechanism
+to ensure consistency and quality across all your playbooks.
+This is where Ansible Lint enters the scene.
+Ansible Lint is a command-line tool
+that performs linting on Ansible playbooks, roles,
+and collections.
+It checks your code for potential errors, bugs,
+stylistic errors, and suspicious constructs.
+It's akin to having a seasoned Ansible mentor guiding you,
+providing valuable insights and catching issues
+that might have slipped past your notice.
