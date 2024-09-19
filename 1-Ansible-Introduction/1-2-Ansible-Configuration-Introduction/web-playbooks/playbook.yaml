@@ -1,0 +1,7 @@
+---
+- name: 'First playbook'
+  hosts: localhost
+  tasks:
+    - name: 'Ansible Hello world'
+      debug:
+        msg: 'Hello Ansbile. Web Playbook'
