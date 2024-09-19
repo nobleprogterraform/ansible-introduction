@@ -156,3 +156,8 @@ because of the environment variable ansible_gathering.
 It tells you exactly how it picked that value.
 This is especially useful when you're troubleshooting issues
 with configuration.
+
+mkdir 1-2-Ansible-Configuration-Introduction
+cd 1-2-Ansible-Configuration-Introduction
+mkdir db-playbooks
+

@@ -5,7 +5,7 @@ If you're a systems engineer or IT administrator
 or just anybody working in IT,
 you're probably involved in doing a lot
 of repetitive tasks in your environment,
-whether it be sizing and creating new hosts
+whether it be creating new hosts
 or virtual machines every day,
 applying configurations on them,
 patching in hundreds of servers, migrations,
@@ -15,7 +15,7 @@ and compliance audits.
 All of these very repetitive tasks involve execution
 of hundreds of commands on hundreds of different servers
 while maintaining the right sequence of events
-with system reboots and whatnot in between.
+with system reboots and what not in between.
 Some people develop scripts to automate these tasks
 but that requires coding skills and regular maintenance
 of these scripts, and a lot of time
@@ -38,7 +38,7 @@ on your DR environment, all it takes is modifying one line.
 Now, don't worry about the playbook itself
 or its syntax for now.
 We will get into that in a bit,
-and we have lots of fun exercises coming up
+and we have lots of exercises coming up
 that will get you all set with this in no time.
 
 Let's take a look at a simple use case.
