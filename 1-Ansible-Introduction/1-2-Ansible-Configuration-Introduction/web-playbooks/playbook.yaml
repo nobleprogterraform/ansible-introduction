@@ -1,7 +1,8 @@
 ---
 - name: 'First playbook'
-  hosts: localhost
+  hosts: target1
+  #gather_facts: yes
   tasks:
     - name: 'Ansible Hello world'
       debug:
-        msg: 'Hello Ansbile. Web Playbook'
+        var: ansible_facts
