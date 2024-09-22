@@ -34,6 +34,7 @@ and gathers facts from the hosts.
 So how do you see those facts?
 All facts gathered by Ansible are stored in a variable
 named ansible_facts.
+
 Let's update our playbook to print that variable
 instead of the message.
 Use the VAR option on the debug module
@@ -44,11 +45,8 @@ whether it's a 64 bit or a 32 bit system,
 with flavor, version, DNS server configurations,
 FQDN, interfaces, memory details, device information,
 processor details, et cetera.
-These details could come in handy within your playbooks.
-For example, if you were configuring devices
-and logical volumes on your nodes,
-you could make certain decisions
-based on the information about disks gathered as facts.
+
+
 Now, what if you don't want Ansible to do that?
 Say for example, your playbook does not rely on
 any information gathered from facts,
@@ -72,22 +70,12 @@ What if you have it specified in both places,
 in the playbook as well as in the configuration file?
 The setting in the playbook always takes precedence
 over the one in the configuration file.
-One more thing, remember that Ansible only gathers facts
-against hosts that are part of the playbook.
-In this case, I have an inventory file with two hosts,
-web1 and web2,
-and an Ansible playbook which targets only one host, web1.
-In this case, facts will be gathered only
-for that host, web1.
-So anytime you come across a situation
-where facts for some hosts are unavailable,
-that could probably be because you have not targeted
-those hosts in your playbooks.
+
 
 # Show Fact gathered at start of play
 ---
 - name: Print Hello message
-  host: all
+  hosts: all
   tasks:
     - debug:
         msg: Hello from Ansible
@@ -95,7 +83,7 @@ those hosts in your playbooks.
 # Show facts
 ---
 - name: Print Facts
-  host: all
+  hosts: all
   tasks:
     - debug:
         var: ansible_facts
@@ -103,7 +91,7 @@ those hosts in your playbooks.
 # Gather no facts
 ---
 - name: Print Facts
-  host: all
+  hosts: all
   gather_facts: no
   tasks:
     - debug:

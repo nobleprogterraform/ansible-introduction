@@ -18,21 +18,7 @@ It's like a rehearsal
 before the actual performance allowing you to catch
 and rectify any errors or unexpected behaviors
 in a controlled environment.
-Without this verification step,
-you run the risk of introducing unforeseen issues
-into your systems as illustrated in the scenario shown.
-These issues can lead to system downtime, data loss
-or other serious consequences,
-and can be much more difficult and time consuming to resolve
-than the initial problem
-the playbook was intended to address.
-By verifying your playbooks,
-you can proceed with confidence knowing
-that your playbook will behave exactly
-as expected when it's run in your production environment.
-This not only helps to maintain the stability
-and reliability of your systems
-but also saves you from potential headaches down the line.
+
 Let us now see how we can verify playbooks in Ansible.
 Ansible provides several modes for verifying playbooks
 out of which the check mode and diff mode are the main ones.
@@ -81,6 +67,7 @@ In this output you can see the exact change
 that would be made to the ETC nginx nginx.config file.
 The line with the plus symbol shows what would be added
 to the file.
+
 In addition to the check and diff modes,
 Ansible also provides a syntax check mode.
 This mode checks the syntax of your playbook for any errors.
@@ -88,7 +75,7 @@ It's a quick way to catch syntax errors
 that could cause your playbook to fail.
 To run a playbook in syntax check mode use
 the --syntax-check option.
-Here's how you can use it.
+
 Let's say you have the following playbook saved
 as configure_nginx.yml.
 You can run the syntax check with the following command.
@@ -102,20 +89,3 @@ This error message tells you exactly
 where the problem is making it easier to fix the issue.
 The syntax check mode is a quick way to catch such errors
 before running the playbook on your hosts.
-
-###Ansible Lint
-As your infrastructure expands,
-so does the complexity of your playbooks.
-Some playbooks start to become more difficult to understand
-and maintain than others.
-You realize that you need a mechanism
-to ensure consistency and quality across all your playbooks.
-This is where Ansible Lint enters the scene.
-Ansible Lint is a command-line tool
-that performs linting on Ansible playbooks, roles,
-and collections.
-It checks your code for potential errors, bugs,
-stylistic errors, and suspicious constructs.
-It's akin to having a seasoned Ansible mentor guiding you,
-providing valuable insights and catching issues
-that might have slipped past your notice.

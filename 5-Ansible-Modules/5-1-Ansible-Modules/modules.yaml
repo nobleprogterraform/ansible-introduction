@@ -2,6 +2,7 @@ We will now look at modules in Ansible.
 Ansible modules are categorized,
 into various groups based on their functionality.
 Some of them are listed here.
+
 System modules are actions to be performed,
 at a system level such as modifying the users
 and groups on the system, modifying IP tables,
@@ -10,6 +11,7 @@ working with logical volume groups,
 mounting operations or working with services.
 For example, starting, stopping
 or restarting services in a system.
+
 Command modules are used to execute commands
 or scripts on a host.
 This could be simple commands using the command module
@@ -17,6 +19,7 @@ or an interactive execution using the expect module,
 by responding to prompts.
 You could also run a script on the host,
 using the script module.
+
 File modules help work with files.
 For example, use the ACL module,
 to set and retrieve ACL information on files.
@@ -24,10 +27,12 @@ Use the archive and un-archive modules to compress
 and unpack files.
 Use find, lineinfile and replace modules,
 to modify the contents of an existing file.
+
 Database modules help in working with databases,
 such as MongoDB, MySQL, MSSQL or PostgreSQL,
 to add or remove databases
 or modify database configurations.
+
 The cloud section has a vast collection of modules,
 for various different cloud providers,
 like Amazon, Azure, Docker, Google, Openstack
@@ -38,6 +43,7 @@ such as creating and destroying instances,
 performing configuration changes in networking and security,
 managing containers, data centers, clusters,
 virtual networking, VSAN and a lot more.
+
 And then there are Windows modules,
 that help you use Ansible in a Windows environment.
 Some of these are wincopy to copy files,
@@ -63,7 +69,7 @@ We will start with the command module.
 The command module is used to execute a command,
 on a remote node.
 The parameters of the command module,
-as listed in the documentation page is shown here.
+as listed in the documentation page.
 Shown is a sample Ansible playbook using the command module.
 As you can see, to use the module,
 you simply create a key value pair of the module name
@@ -86,9 +92,7 @@ The creates parameter is used to perform a check,
 before the command is run.
 For example, this command to create the folder,
 will only run if the folder does not exist.
-The remaining parameters are self explanatory,
-so we will skip them.
-Except for this one right here called free form.
+Lets look at free form parameter.
 This is worth looking at as you may see it,
 in different modules.
 Free form indicates that this module,
@@ -148,9 +152,7 @@ we would like to perform, in this case started.
 Now, if you're wondering why is it started,
 instead of start, well hold onto your thoughts
 and we will come back to that in a bit.
-Now, there are two ways of writing this statement,
-you can either write it like this
-or write it in a dictionary or map format like this.
+
 They're one and the same.
 Remember, in YAML terms, name and state,
 are properties of service.

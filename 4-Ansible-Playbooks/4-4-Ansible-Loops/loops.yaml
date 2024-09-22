@@ -28,12 +28,7 @@ and with reduced repetition.
 In this case
 you are not repeating the lines of the user module
 or the state.
-If you didn't get how the part about item works,
-let me visualize that for you.
-So any time you come across a play book
-probably written by someone else,
-and the loop part is confusing,
-I would recommend visualizing it like this
+
 
 But what if I want to specify the user id as well.
 That would mean each item in the loop
@@ -52,10 +47,7 @@ In this case both playbooks yield the same results
 and there is not much difference between the two.
 For simple loops like the ones we have been working on,
 it is recommended to use the loop directive itself.
-However in some of the older playbooks,
-you might come across the
-with items directive so you should understand
-what that means when you see that.
+
 Now lets look at the advantage of the with directives.
 With items just iterates over a list of items.
 We have other directives such as,

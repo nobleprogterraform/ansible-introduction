@@ -15,13 +15,13 @@ NETWORK_SETTINGS = {
 # Define list of virtual machines to be created here.
 VIRTUAL_MACHINES = [
   {
-    name: "ansiblecontroller",   # Name (and hostname) for the VM
+    name: "target1",   # Name (and hostname) for the VM
     cpu: 2,                       # Number of vCPUs to assign it
     memory: 2048,                 # RAM in MB to assign it
     box: Hypervisor.centos,       # Operating system to run
   },
   {
-    name: "target1",
+    name: "target2",
     cpu: 2,
     memory: 2048,
     box: Hypervisor.centos,

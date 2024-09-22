@@ -6,6 +6,7 @@ Ansible needs to establish connectivity to those servers.
 This is done using SSH
 for Linux and PowerShell Remoting for Windows.
 That's what makes Ansible Agentless.
+
 Agentless means that you don't need to install
 any additional software
 on the target machines to be able to work with Ansible.
@@ -17,9 +18,11 @@ on the target systems
 before you can invoke any kind of automation.
 Now, information about these target systems is stored
 in an inventory file.
+
 If you don't create a new inventory file
 Ansible uses the default inventory file located
 at etc/Ansible/hosts location.
+
 Let's take a look at a sample inventory file.
 The inventory file is in an INI like format.
 It's simply a number of servers listed, one after the other.
@@ -74,8 +77,5 @@ The best practice is to set
 up SSH key based passwordless authentication
 between the servers, and you should definitely do that
 in your production or corporate environments.
-But for now, we wanna start
-with the absolute basics of Ansible
-without getting too much into security or other topics.
-So to begin with, we'll start
+To begin with, we'll start
 with a really basic setup with a username and password.

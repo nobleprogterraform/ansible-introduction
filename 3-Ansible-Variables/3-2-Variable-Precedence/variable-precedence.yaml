@@ -1,13 +1,5 @@
 
-In the example shown,Discussed about variables
-in the beginner's course.
-They are used to associate information to hosts,
-information that varies, that's different between each host.
-It's information that is used by Ansible itself
-to, say, establish connectivity to the hosts.
-That's information that could be used by your playbooks
-or place to configure hosts with such as DNS server IP,
-NTP server IP, IP tables, firewall rules, et cetera.
+In previous lab we Discussed about variables
 So what is variable precedence?
 What if you have a variable defined in two different places?
 For example, in this inventory file,
@@ -25,7 +17,7 @@ and then associates the group variables to each host.
 Each host gets its own copy of that variable
 and that is used throughout the playbook execution.
 What if I define the same variable on the host as well?
-For web2, I say the DNS server is something else.
+For localhost, I say the DNS server is something else.
 Which one would be considered by Ansible?
 When Ansible playbook is run, it first associates
 the group variables and then associates the host variables.
@@ -53,30 +45,3 @@ you can pass in a variable to an Ansible playbook.
 A comprehensive list of the different options
 and their precedence is given
 in the Ansible documentation
-max_connections is a number variable with the value 100.
-Another type of variable is a Boolean variable.
-The Boolean variables in Ansible
-can hold either truthy or falsy values.
-They're often used in conditional statements.
-In the example shown, debug_mode is a Boolean variable
-with the value true.
-Possible truthy and falsy values
-are shown in the table displayed.
-We use list variables in Ansible
-to hold an ordered collection of values.
-The values can be of any type.
-In this example,
-packages is a list variable that holds three string values.
-You can reference this variable in your playbook
-in double curly brackets.
-If you want to access a specific item in the list,
-you can do so by its index, as shown in the example.
-We also have dictionary variables in Ansible
-that can hold a collection of key-value pairs.
-The keys and values can be of any type.
-In this example, user is a dictionary variable
-that holds two key-value pairs.
-You can reference this variable in your playbook
-by using double curly brackets.
-If you want to access a specific value in the dictionary,
-you can do so by its key, as shown in the example.

@@ -18,7 +18,7 @@ are all examples of variables.
 We can define as many variables as required like this.
 
 We could also define variables inside the playbook.
-This is a playbook we created earlier to add a DNS entry
+This is a playbook to add a DNS entry
 into the etc/resolv.conf file.
 To add a variable, we could simply add a vars directive,
 followed by variables in a key-value pair format.
@@ -27,18 +27,10 @@ In this case, dns_server followed by the DNS server IP.
 We can also have variables defined
 in a separate file dedicated for variables.
 We will learn about this more later
-when we talk about includes and roles.
+when we talk about roles.
 
 So, we have now defined variables,
 but how do we use them?
-In the previous playbook,
-we have defined the variable dns_server,
-but we have not used it anywhere.
-What would be the right place to use that?
-In this line here where we defined
-the nameserver IP address,
-we could replace the hard coded value
-with the value from the variable.
 To use a variable, simply enter the variable name
 enclosed in double braces or curly brackets.
 

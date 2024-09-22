@@ -77,7 +77,7 @@ So how do you use your role within your playbook?
 Say I have my playbook
 within a directory called my playbook.
 My playbook dot yml file contains a simple play
-to install and configure MySQL on my TP server.
+to install and configure MySQL on my server.
 I would like to assign the role I created using
 the roles directive like this, but if I were to do that
 how does my playbook know where that role is?
@@ -91,7 +91,7 @@ When the playbook runs, Ansible looks for a role named MySQL
 under the roles directory, and that's one way of doing it.
 Or you can move the roles
 to a common directory designated for roles on your system
-at etc Ansible roles location.
+at etc/qnsible/roles location.
 That's the default location where Ansible searches for roles
 if it can't be found in your playbooks directory.
 Of course, that's defined in the Ansible configuration file
@@ -100,6 +100,7 @@ Once you have created your role and placed it
 in your roles directory and used it in a playbook
 you may share it with the community by uploading it
 to Ansible Galaxy through a GitHub repository.
+
 Now, what if you don't want to use a role from Galaxy?
 Instead, you want to find an existing role
 and use it in your playbook.
@@ -108,6 +109,8 @@ or do it from the command line interface using
 the Ansible dash galaxy search command.
 To use a role, run the Ansible dash galaxy install command
 with the name of the role.
+#ansible-galaxy role install geerlingguy.mysql
+
 The role is extracted to the default roles directory
 at etc Ansible roles location.
 The roles can now be used in your playbook

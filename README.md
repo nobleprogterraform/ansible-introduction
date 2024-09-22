@@ -32,8 +32,8 @@ Do all the following from your favourite terminal application
     When the process completes successfully, it will display the names of the VMs and their IP addresses on the virtual network
 
     ```text
-    192.168.56.11 ansiblecontroller
-    192.168.56.12 target1
+    192.168.56.11 target1
+    192.168.56.12 target2
     ```
 
     Note that the login credentials for all these machines is
@@ -45,10 +45,13 @@ Do all the following from your favourite terminal application
 
 4. Test logging in.
 
-    1. Log into the controller VM
+    1. Add target1 and target2 entries in hosts
 
         ```
-        vagrant ssh ansiblecontroller
+        sudo vi /etc/hosts
+        Add below lines at the bottom
+        192.168.56.12 target2
+        192.168.56.11 target1
         ```
 
         This login is password-less so you should get directly to the CentOS prompt.
@@ -56,20 +59,16 @@ Do all the following from your favourite terminal application
     1. Test the controller can connect to the target machine
 
         ```
-        ssh target1
+        ssh vagrant@target1
+        enter password vagrant
+        ssh vagrant@target2
+        enter password vagrant
         ```
 
         You will be asked for the password this time, which is the password above.
 
     1. Enter `exit` command twice to retun to laptop command prompt.
 
-## Deleting the VMs
-
-To erase all VMs, do
-
-```
-vagrant destroy -f
-```
 
 # Install Ansible
 
@@ -79,40 +78,6 @@ $ sudo apt update
 $ sudo apt install software-properties-common
 $ sudo add-apt-repository --yes --update ppa:ansible/ansible
 $ sudo apt install ansible
-
-## Install
-
-1. Log into the controller machine
-
-    ```
-    vagrant ssh ansiblecontroller
-    ```
-
-1. Install
-
-    ```bash
-    sudo yum install -y ansible
-    ```
-
-1. Verify
-
-    ```bash
-    ansible --version
-    ```
-
-    You should see something similar to this
-
-    ```
-    ansible [core 2.14.17]
-      config file = /etc/ansible/ansible.cfg
-      configured module search path = ['/home/vagrant/.ansible/plugins/modules', '/usr/share/ansible/plugins/modules']
-      ansible python module location = /usr/lib/python3.9/site-packages/ansible
-      ansible collection location = /home/vagrant/.ansible/collections:/usr/share/ansible/collections
-      executable location = /usr/bin/ansible
-      python version = 3.9.18 (main, Jan 24 2024, 00:00:00) [GCC 11.4.1 20231218 (Red Hat 11.4.1-3)] (/usr/bin/python3)
-      jinja version = 3.1.2
-      libyaml = True
-    ```
 
 ## Test
 
@@ -128,7 +93,7 @@ Now we will make a small test project
 1. Create an inventory file for the target machine `target1`, providing the password to log into it
 
     ```bash
-    echo "target1 ansible_ssh_pass=vagrant" > inventory.txt
+    echo "target1 ansible_user=vagrant ansible_ssh_pass=vagrant" > inventory.txt
     ```
 
 1. Test connectivity

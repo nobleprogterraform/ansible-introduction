@@ -36,9 +36,7 @@ Anything within the facts of a host
 can be retrieved like this.
 Also, note that you can write the same expression
 like this using brackets and single quotes.
-Both these expressions yield the same results.
-You might see this in different formats
-in the documentation.
+
 So that was one kind of magic variable that are used
 to get variables from other hosts.
 Another magic variable is called groups.
@@ -54,10 +52,7 @@ that gives you the name configured for the host
 in the inventory file and not the host name or SQDN.
 Well, those are a few, and there are others as well
 that we can see in the documentation page.
-In the documentation section,
-magic variables are documented
-under the Using Variables section
-under Working with Playbook section in the user guide.
+
 
 
 ---
@@ -65,4 +60,8 @@ under Working with Playbook section in the user guide.
   host: all
   tasks:
     - debug:
-        msg: '{{ host_vars['web2'].dns_server }}'
+        msg: "{{ host_vars['localhost'].nameserver_ip }}"
+
+#"{{ host_vars['localhost'].ansible_hostname }}"
+#"{{ host_vars['localhost'].ansible_facts.architecture }}"
+#"{{ host_vars['localhost'].inventory_hostname }}"

@@ -17,6 +17,7 @@ to ensure that your inventory remains up to date
 and reflects the current state of your infrastructure.
 But here, Ansible's static inventory file falls short
 in managing the dynamic nature of your cloud environment.
+
 Another requirement could be creating AWS EC2 instances
 with specific AMI versions instance, types,
 and security groups
@@ -128,6 +129,7 @@ Armed with this information,
 you can seamlessly integrate the cisco.ios module
 into your automation workflows
 and efficiently manage your network devices.
+
 The modules and plugins index
 serves as a centralized and organized resource
 that provides detailed information
@@ -148,7 +150,8 @@ dedicated to helping you find the perfect tools for the job.
 Whether you need to search
 by keywords, categories, or specific criteria,
 the index has got you covered.
-It's a real time-saver, trust me, and that's not all.
+It's a real time-saver
+
 Detailed documentation is another fantastic feature.
 Each module and plugins in the index
 comes with its own user manual.

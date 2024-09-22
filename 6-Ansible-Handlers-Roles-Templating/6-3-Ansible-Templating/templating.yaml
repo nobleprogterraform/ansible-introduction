@@ -1,6 +1,5 @@
 #Jinja2 templating overview
-This lecture, we will look at Jinja2.
-For those of you who are new to templating
+This lecture, we will look at templating in ansible using Jinja2
 A templating engine is responsible
 for taking a template and applying
 a given set of variables to it
@@ -26,7 +25,7 @@ templating engine for Python.
 It is beautiful and powerful
 and has a wide range of features.
 
-A simple and easy use case is to substitute parts of a train
+A simple and easy use case is to substitute parts of a string
 with a value from a variable.
 If the value of the variable, my_name is Bond,
 then the template would resolve to the name is Bond.

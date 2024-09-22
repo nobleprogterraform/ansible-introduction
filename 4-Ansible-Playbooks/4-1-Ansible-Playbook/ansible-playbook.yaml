@@ -17,6 +17,7 @@ setting up load balancing, setting up monitoring components,
 installing and configuring backup clients
 and updating configuration database with information
 about the new VMs, et cetera.
+
 Let's take a closer look at how Playbooks are written.
 Remember, all Playbooks are written in YAML format,
 which is why we spent some time earlier
@@ -88,6 +89,7 @@ is retrieved from the inventory file.
 If you specify a group, instead,
 the listed tasks will be executed
 on all the hosts listed under that group simultaneously.
+
 Let's move on to modules.
 The different actions run by tasks are called modules.
 In this case, command, script, yum and service,

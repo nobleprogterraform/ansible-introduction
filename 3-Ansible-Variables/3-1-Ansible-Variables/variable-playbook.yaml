@@ -1,12 +1,14 @@
 ---
 - name: 'Add nameserver in resolv.conf file on localhost'
   hosts: localhost
-  become: yes
+  vars:
+    dns_server: 10.1.250.10
   tasks:
     - name: 'Add nameserver in resolv.conf file'
       lineinfile:
         path: /tmp/resolv.conf
         line: 'nameserver {{ dns_server }}'
+        create: true
 
 
 

@@ -4,7 +4,7 @@ I have two playbooks here that does the same thing,
 install NGINX on a host.
 But as you know,
 different OS flavors use different package managers.
-WN uses APT and Red Hat uses Yum
+One uses APT and Red Hat uses Yum
 but these are two separate playbooks
 and you will have to use the right playbook
 for the respective servers.
@@ -27,7 +27,7 @@ in conditional statement.
 You may use an or operator to
 specify either of two conditions.
 Use the yum module to install package if the OS family
-is Red Hat or Suse or an and operator.
+is Red Hat or an and operator.
 So it must satisfy both conditions.
 In this case we use the APT module only if
 the OS family is Debian and the version is 16.04.
@@ -53,6 +53,7 @@ I would say when item.required equals true.
 and so back in my main playbook, that's what I would put in.
 When item.required equals true
 and that's how you use conditionals in loops.
+
 Let's look at one final example.
 To use conditionals with the output of a previous task
 we have a requirement to develop a playbook
